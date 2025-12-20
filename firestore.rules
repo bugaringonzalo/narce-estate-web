@@ -1,0 +1,111 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // ============================================
+    // FUNCIONES HELPER
+    // ============================================
+    
+    // Verificar si el usuario está autenticado
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Verificar si el usuario es admin (por email)
+    // Reemplazá los emails con los de los admins reales
+    function isAdmin() {
+      return isAuthenticated() && 
+        request.auth.token.email in [
+          'bugaringonzalo@gmail.com'
+        ];
+    }
+    
+    // Verificar que los campos requeridos existan
+    function hasRequiredFields(fields) {
+      return request.resource.data.keys().hasAll(fields);
+    }
+    
+    // Verificar timestamp válido
+    function validTimestamp(field) {
+      return request.resource.data[field] is timestamp;
+    }
+    
+    // ============================================
+    // COLECCIÓN: properties (Propiedades)
+    // ============================================
+    match /properties/{propertyId} {
+      // Lectura: cualquiera puede leer propiedades activas
+      allow read: if resource.data.isActive == true || isAdmin();
+      
+      // Crear: solo admins
+      allow create: if isAdmin() && 
+        hasRequiredFields(['title', 'slug', 'price', 'propertyType', 'listingType', 'isActive']);
+      
+      // Actualizar: solo admins
+      allow update: if isAdmin();
+      
+      // Eliminar: solo admins (aunque preferimos soft delete con isActive = false)
+      allow delete: if isAdmin();
+    }
+    
+    // ============================================
+    // COLECCIÓN: contacts (Consultas de contacto)
+    // ============================================
+    match /contacts/{contactId} {
+      // Lectura: solo admins pueden ver las consultas
+      allow read: if isAdmin();
+      
+      // Crear: cualquiera puede enviar una consulta
+      // Validamos campos mínimos para evitar spam
+      allow create: if hasRequiredFields(['name', 'email', 'message']) &&
+        request.resource.data.name is string &&
+        request.resource.data.name.size() > 2 &&
+        request.resource.data.email is string &&
+        request.resource.data.email.matches('.*@.*\\..*') &&
+        request.resource.data.message is string &&
+        request.resource.data.message.size() > 10;
+      
+      // Actualizar: solo admins (para cambiar status)
+      allow update: if isAdmin();
+      
+      // Eliminar: solo admins
+      allow delete: if isAdmin();
+    }
+    
+    // ============================================
+    // COLECCIÓN: config (Configuración del sitio)
+    // ============================================
+    match /config/{configId} {
+      // Lectura: cualquiera puede leer la configuración pública
+      allow read: if true;
+      
+      // Escribir: solo admins
+      allow write: if isAdmin();
+    }
+    
+    // ============================================
+    // COLECCIÓN: users (Usuarios - si la necesitás)
+    // ============================================
+    match /users/{userId} {
+      // Lectura: usuarios pueden leer su propio perfil, admins pueden leer todos
+      allow read: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
+      
+      // Crear: solo admins pueden crear usuarios
+      allow create: if isAdmin();
+      
+      // Actualizar: usuarios su propio perfil, admins cualquiera
+      allow update: if isAuthenticated() && (request.auth.uid == userId || isAdmin());
+      
+      // Eliminar: solo admins
+      allow delete: if isAdmin();
+    }
+    
+    // ============================================
+    // REGLA DEFAULT: denegar todo lo demás
+    // ============================================
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
