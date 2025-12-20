@@ -42,3 +42,10 @@ next-env.d.ts
 
 # claude files
 .claude-local-*
+.claude-remote-*
+.claude-config.json
+.claude-logs/
+.claude-sessions/
+.claude-temp/
+.claude-cache/
+.claude*
