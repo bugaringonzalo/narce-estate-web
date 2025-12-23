@@ -3,8 +3,8 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// Registrar plugins una sola vez para evitar memory leaks
-if (typeof window !== 'undefined' && !gsap.core.globals()['ScrollTrigger']) {
+// Registrar plugins en el cliente
+if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
 

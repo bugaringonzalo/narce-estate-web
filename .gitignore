@@ -49,3 +49,6 @@ next-env.d.ts
 .claude-temp/
 .claude-cache/
 .claude*
+
+# auth database
+auth.db

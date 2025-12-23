@@ -2,19 +2,17 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getPropertyBySlug } from '@/lib/firebase/firestore';
 
-interface RouteParams {
-  params: {
-    slug: string;
-  };
+interface RouteContext {
+  params: Promise<{ slug: string }>;
 }
 
 // GET - Obtener propiedad por slug
 export async function GET(
   request: NextRequest,
-  { params }: RouteParams
+  { params }: RouteContext
 ) {
   try {
-    const { slug } = params;
+    const { slug } = await params;
     
     const property = await getPropertyBySlug(slug);
     

@@ -1,7 +1,9 @@
+// src/app/(admin)/layout.tsx
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   Home24Regular,
   Building24Regular,
@@ -10,6 +12,7 @@ import {
   SignOut24Regular,
 } from '@fluentui/react-icons';
 import { Button } from '@/components/ui/button';
+import { useSession, signOut } from '@/lib/auth-client';
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -36,6 +39,12 @@ const adminNavLinks = [
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
   const pathname = usePathname();
+  const router = useRouter();
+  const { data: session, isPending } = useSession();
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
+
+  // Si es la página de login, renderizar sin sidebar
+  const isLoginPage = pathname === '/admin/login';
 
   const isActivePath = (path: string): boolean => {
     if (path === '/admin') {
@@ -43,6 +52,33 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     }
     return pathname.startsWith(path);
   };
+
+  const handleLogout = async () => {
+    setIsLoggingOut(true);
+    try {
+      await signOut();
+      router.push('/admin/login');
+      router.refresh();
+    } catch (error) {
+      console.error('Error al cerrar sesión:', error);
+    } finally {
+      setIsLoggingOut(false);
+    }
+  };
+
+  // Si es la página de login, mostrar solo el contenido
+  if (isLoginPage) {
+    return <>{children}</>;
+  }
+
+  // Mientras carga la sesión, mostrar un loading simple
+  if (isPending) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-muted/30">
+        <div className="text-muted-foreground">Cargando...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-muted/30">
@@ -86,17 +122,34 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
               <Person24Regular className="h-4 w-4" />
             </div>
-            <div className="flex-1">
-              <p className="text-sm font-medium">Admin</p>
-              <p className="text-xs text-muted-foreground">admin@narce.com</p>
+            <div className="flex-1 overflow-hidden">
+              <p className="truncate text-sm font-medium">
+                {session?.user?.name || 'Admin'}
+              </p>
+              <p className="truncate text-xs text-muted-foreground">
+                {session?.user?.email || ''}
+              </p>
             </div>
           </div>
-          <Link href="/">
-            <Button variant="ghost" size="sm" className="mt-2 w-full justify-start gap-2">
+
+          <div className="mt-2 flex flex-col gap-1">
+            <Link href="/">
+              <Button variant="ghost" size="sm" className="w-full justify-start gap-2">
+                <Home24Regular className="h-4 w-4" />
+                Ver sitio
+              </Button>
+            </Link>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="w-full justify-start gap-2 text-destructive hover:bg-destructive/10 hover:text-destructive"
+              onClick={handleLogout}
+              disabled={isLoggingOut}
+            >
               <SignOut24Regular className="h-4 w-4" />
-              Volver al sitio
+              {isLoggingOut ? 'Cerrando...' : 'Cerrar sesión'}
             </Button>
-          </Link>
+          </div>
         </div>
       </aside>
 

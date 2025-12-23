@@ -7,19 +7,17 @@ import {
   hardDeleteProperty,
 } from '@/lib/firebase/firestore';
 
-interface RouteParams {
-  params: {
-    id: string;
-  };
+interface RouteContext {
+  params: Promise<{ id: string }>;
 }
 
 // GET - Obtener propiedad por ID
 export async function GET(
   request: NextRequest,
-  { params }: RouteParams
+  { params }: RouteContext
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     
     const property = await getPropertyById(id);
     
@@ -44,10 +42,10 @@ export async function GET(
 // PUT - Actualizar propiedad
 export async function PUT(
   request: NextRequest,
-  { params }: RouteParams
+  { params }: RouteContext
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const body = await request.json();
     
     await updateProperty(id, body);
@@ -69,10 +67,10 @@ export async function PUT(
 // DELETE - Eliminar propiedad
 export async function DELETE(
   request: NextRequest,
-  { params }: RouteParams
+  { params }: RouteContext
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
     const { searchParams } = new URL(request.url);
     const hard = searchParams.get('hard') === 'true';
     
