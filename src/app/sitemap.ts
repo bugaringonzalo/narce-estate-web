@@ -1,6 +1,9 @@
 import { MetadataRoute } from 'next';
 import { getActiveProperties } from '@/lib/firebase/firestore';
 
+// Generar sitemap dinámicamente
+export const dynamic = 'force-dynamic';
+
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {

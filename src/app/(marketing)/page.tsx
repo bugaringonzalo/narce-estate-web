@@ -17,6 +17,9 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { PropertyCard } from '@/components/properties/PropertyCard';
 import { getFeaturedProperties, getActiveProperties } from '@/lib/firebase/firestore';
 
+// Renderizar dinámicamente para evitar errores de Firebase en build
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Narce Estate | Tu inmobiliaria de confianza en Buenos Aires',
   description: 'Encontrá tu próximo hogar con Narce Estate. Propiedades en venta, alquiler y alquiler temporal en Buenos Aires.',

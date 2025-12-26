@@ -1,6 +1,9 @@
 import { DashboardStats } from '@/components/admin/DashboardStats';
 import { getActiveProperties, getFeaturedProperties } from '@/lib/firebase/firestore';
 
+// No pre-renderizar esta página durante el build
+export const dynamic = 'force-dynamic';
+
 export default async function AdminDashboard() {
   // Obtener estadísticas de propiedades
   const allProperties = await getActiveProperties();

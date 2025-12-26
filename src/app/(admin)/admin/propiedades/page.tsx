@@ -2,6 +2,9 @@ import { PropertiesHeader } from '@/components/admin/PropertiesHeader';
 import { PropertiesTable } from '@/components/admin/PropertiesTable';
 import { getActiveProperties } from '@/lib/firebase/firestore';
 
+// No pre-renderizar esta página durante el build
+export const dynamic = 'force-dynamic';
+
 export default async function AdminPropertiesPage() {
   // Obtener todas las propiedades activas
   const properties = await getActiveProperties();

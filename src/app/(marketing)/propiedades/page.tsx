@@ -5,6 +5,9 @@ import { PropertiesFilters } from '@/components/properties/PropertiesFilters';
 import { Skeleton } from '@/components/ui/skeleton';
 import type { Metadata } from 'next';
 
+// Renderizar dinámicamente
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
   title: 'Propiedades | Narce Estate',
   description: 'Explorá nuestra selección de propiedades en venta y alquiler en Buenos Aires.',

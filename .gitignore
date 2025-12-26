@@ -52,3 +52,5 @@ next-env.d.ts
 
 # auth database
 auth.db
+
+.vercel
