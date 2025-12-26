@@ -1,18 +1,12 @@
 // src/app/(admin)/layout.tsx
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import {
-  Home24Regular,
-  Building24Regular,
-  Settings24Regular,
-  Person24Regular,
-  SignOut24Regular,
-} from '@fluentui/react-icons';
+import { Home, Building, Settings, User, LogOut, Mail } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useSession, signOut } from '@/lib/auth-client';
+import { onAuthChange, signOut, AuthUser } from '@/lib/firebase/auth';
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -23,28 +17,49 @@ const adminNavLinks = [
   {
     href: '/admin',
     label: 'Dashboard',
-    icon: Home24Regular,
+    icon: Home,
   },
   {
     href: '/admin/propiedades',
     label: 'Propiedades',
-    icon: Building24Regular,
+    icon: Building,
+  },
+  {
+    href: '/admin/contactos',
+    label: 'Contactos',
+    icon: Mail,
   },
   {
     href: '/admin/configuracion',
     label: 'Configuración',
-    icon: Settings24Regular,
+    icon: Settings,
   },
 ];
 
 export default function AdminLayout({ children }: AdminLayoutProps) {
   const pathname = usePathname();
   const router = useRouter();
-  const { data: session, isPending } = useSession();
+  const [user, setUser] = useState<AuthUser | null>(null);
+  const [loading, setLoading] = useState(true);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   // Si es la página de login, renderizar sin sidebar
   const isLoginPage = pathname === '/admin/login';
+
+  // Escuchar cambios de autenticación
+  useEffect(() => {
+    const unsubscribe = onAuthChange((authUser) => {
+      setUser(authUser);
+      setLoading(false);
+
+      // Si no hay usuario y no estamos en login, redirigir
+      if (!authUser && !isLoginPage) {
+        router.push('/admin/login');
+      }
+    });
+
+    return () => unsubscribe();
+  }, [router, isLoginPage]);
 
   const isActivePath = (path: string): boolean => {
     if (path === '/admin') {
@@ -58,7 +73,6 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     try {
       await signOut();
       router.push('/admin/login');
-      router.refresh();
     } catch (error) {
       console.error('Error al cerrar sesión:', error);
     } finally {
@@ -71,11 +85,20 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
     return <>{children}</>;
   }
 
-  // Mientras carga la sesión, mostrar un loading simple
-  if (isPending) {
+  // Mientras carga o no hay usuario, mostrar loading
+  if (loading) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-muted/30">
         <div className="text-muted-foreground">Cargando...</div>
+      </div>
+    );
+  }
+
+  // Si no hay usuario, no mostrar nada (se redirigirá en el useEffect)
+  if (!user) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-muted/30">
+        <div className="text-muted-foreground">Redirigiendo...</div>
       </div>
     );
   }
@@ -87,7 +110,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         {/* Logo */}
         <div className="flex h-16 items-center border-b px-6">
           <Link href="/admin" className="flex items-center gap-2">
-            <Building24Regular className="text-primary" />
+            <Building className="text-primary" />
             <span className="text-lg font-bold">Narce Admin</span>
           </Link>
         </div>
@@ -120,14 +143,14 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         <div className="absolute bottom-0 left-0 right-0 border-t p-4">
           <div className="flex items-center gap-3 rounded-lg px-3 py-2">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary text-primary-foreground">
-              <Person24Regular className="h-4 w-4" />
+              <User className="h-4 w-4" />
             </div>
             <div className="flex-1 overflow-hidden">
               <p className="truncate text-sm font-medium">
-                {session?.user?.name || 'Admin'}
+                {user.displayName || 'Admin'}
               </p>
               <p className="truncate text-xs text-muted-foreground">
-                {session?.user?.email || ''}
+                {user.email || ''}
               </p>
             </div>
           </div>
@@ -135,7 +158,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           <div className="mt-2 flex flex-col gap-1">
             <Link href="/">
               <Button variant="ghost" size="sm" className="w-full justify-start gap-2">
-                <Home24Regular className="h-4 w-4" />
+                <Home className="h-4 w-4" />
                 Ver sitio
               </Button>
             </Link>
@@ -146,7 +169,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
               onClick={handleLogout}
               disabled={isLoggingOut}
             >
-              <SignOut24Regular className="h-4 w-4" />
+              <LogOut className="h-4 w-4" />
               {isLoggingOut ? 'Cerrando...' : 'Cerrar sesión'}
             </Button>
           </div>

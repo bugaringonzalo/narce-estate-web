@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { signIn } from '@/lib/auth-client';
+import { signIn } from '@/lib/firebase/auth';
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -23,18 +23,14 @@ export default function AdminLoginPage() {
     setLoading(true);
 
     try {
-      const { data, error: signInError } = await signIn.email({
-        email,
-        password,
-        callbackURL: '/admin',
-      });
+      const { user, error: signInError } = await signIn(email, password);
 
       if (signInError) {
-        setError(signInError.message || 'Error al iniciar sesión');
+        setError(signInError);
         return;
       }
 
-      if (data) {
+      if (user) {
         router.push('/admin');
         router.refresh();
       }

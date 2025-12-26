@@ -1,5 +1,6 @@
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { FloatingButtons } from "@/components/layout/FloatingButtons";
 
 export default function MarketingLayout({
   children,
@@ -13,6 +14,7 @@ export default function MarketingLayout({
         {children}
       </main>
       <Footer />
+      <FloatingButtons />
     </>
   );
 }

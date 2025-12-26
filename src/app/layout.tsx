@@ -12,9 +12,35 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
+
 export const metadata: Metadata = {
-  title: "Narce Estate - Propiedades en Venta y Alquiler",
-  description: "Narce Estate - Encontrá tu propiedad ideal. Venta, alquiler y alquiler temporal de propiedades en Buenos Aires.",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Narce Estate - Propiedades en Venta y Alquiler",
+    template: "%s | Narce Estate",
+  },
+  description: "Encontrá tu propiedad ideal en Buenos Aires. Venta, alquiler y alquiler temporal de departamentos, casas y PHs.",
+  keywords: ["inmobiliaria", "propiedades", "venta", "alquiler", "Buenos Aires", "departamentos", "casas", "alquiler temporal"],
+  authors: [{ name: "Narce Estate" }],
+  creator: "Narce Estate",
+  openGraph: {
+    type: "website",
+    locale: "es_AR",
+    url: siteUrl,
+    siteName: "Narce Estate",
+    title: "Narce Estate - Propiedades en Venta y Alquiler",
+    description: "Encontrá tu propiedad ideal en Buenos Aires. Venta, alquiler y alquiler temporal.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Narce Estate - Propiedades en Venta y Alquiler",
+    description: "Encontrá tu propiedad ideal en Buenos Aires.",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function RootLayout({
