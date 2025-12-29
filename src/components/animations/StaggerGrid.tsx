@@ -67,7 +67,7 @@ export const StaggerGrid: React.FC<StaggerGridProps> = ({
       duration,
       stagger: {
         amount: stagger * items.length,
-        from: 'start',
+        from: 'start' as const,
       },
       delay,
       ease: 'power3.out',

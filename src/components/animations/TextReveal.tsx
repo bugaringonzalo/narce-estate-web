@@ -56,7 +56,7 @@ export const TextReveal: React.FC<TextRevealProps> = ({
         duration,
         stagger: {
           amount: stagger * elements.length,
-          from: 'start',
+          from: 'start' as const,
         },
         delay,
         ease: 'power4.out',
