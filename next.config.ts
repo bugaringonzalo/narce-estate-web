@@ -1,8 +1,6 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
-  reactCompiler: true,
   images: {
     remotePatterns: [
       {
@@ -14,6 +12,10 @@ const nextConfig: NextConfig = {
         hostname: 'firebasestorage.googleapis.com',
       },
     ],
+  },
+  // React Compiler (Next.js 15 experimental feature)
+  experimental: {
+    reactCompiler: true,
   },
 };
 
