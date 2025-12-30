@@ -72,7 +72,7 @@ export function PropertyDetail({ property }: PropertyDetailProps) {
       </div>
 
       <div className="container mx-auto px-4 py-8 sm:px-6 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-3">
+        <div className="grid gap-8 lg:grid-cols-3 pt-8">
           {/* Columna principal */}
           <div className="space-y-8 lg:col-span-2">
             {/* Galería de imágenes */}

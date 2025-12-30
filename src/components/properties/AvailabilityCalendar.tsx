@@ -154,16 +154,10 @@ export function AvailabilityCalendar({ propertyId, className }: AvailabilityCale
             head_cell: "text-muted-foreground flex-1 font-medium text-xs uppercase text-center py-2",
             row: "flex w-full",
             cell: "flex-1 text-center p-0.5",
-            day: cn(
-              "w-full aspect-square p-0 font-normal rounded-md transition-all inline-flex items-center justify-center text-sm",
-              "hover:bg-emerald-100 hover:text-emerald-700 dark:hover:bg-emerald-900/30",
-              "aria-disabled:bg-red-100 dark:aria-disabled:bg-red-900/40",
-              "aria-disabled:text-red-500 dark:aria-disabled:text-red-400",
-              "aria-disabled:cursor-not-allowed aria-disabled:hover:bg-red-100"
-            ),
-            day_today: "bg-primary text-primary-foreground font-bold",
-            day_disabled: "text-red-500 bg-red-50 dark:bg-red-950/40",
-            day_outside: "text-muted-foreground/30",
+            day: "w-full aspect-square p-0 font-normal rounded-md transition-all inline-flex items-center justify-center text-sm bg-emerald-50 text-emerald-700 hover:bg-emerald-100 dark:bg-emerald-950/30 dark:text-emerald-400",
+            day_today: "!bg-primary !text-primary-foreground font-bold",
+            day_disabled: "!bg-red-100 !text-red-500 cursor-not-allowed hover:!bg-red-100 dark:!bg-red-950/40 dark:!text-red-400",
+            day_outside: "!bg-transparent !text-muted-foreground/30",
           }}
         />
 
