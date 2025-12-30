@@ -1,11 +1,12 @@
 // src/app/api/properties/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
+// Usar Admin SDK para operaciones del servidor (ignora las reglas de seguridad)
 import {
-  getPropertyById,
-  updateProperty,
-  deleteProperty,
-  hardDeleteProperty,
-} from '@/lib/firebase/firestore';
+  getPropertyByIdAdmin,
+  updatePropertyAdmin,
+  deletePropertyAdmin,
+  hardDeletePropertyAdmin,
+} from '@/lib/firebase/firestore-admin';
 
 interface RouteContext {
   params: Promise<{ id: string }>;
@@ -19,7 +20,7 @@ export async function GET(
   try {
     const { id } = await params;
     
-    const property = await getPropertyById(id);
+    const property = await getPropertyByIdAdmin(id);
     
     if (!property) {
       return NextResponse.json(
@@ -48,7 +49,7 @@ export async function PUT(
     const { id } = await params;
     const body = await request.json();
     
-    await updateProperty(id, body);
+    await updatePropertyAdmin(id, body);
     
     return NextResponse.json({
       message: 'Property updated successfully',
@@ -76,10 +77,10 @@ export async function DELETE(
     
     if (hard) {
       // Hard delete: eliminar permanentemente
-      await hardDeleteProperty(id);
+      await hardDeletePropertyAdmin(id);
     } else {
       // Soft delete: marcar como inactiva
-      await deleteProperty(id);
+      await deletePropertyAdmin(id);
     }
     
     return NextResponse.json({

@@ -4,8 +4,9 @@ import {
   getActiveProperties,
   getFeaturedProperties,
   getFilteredProperties,
-  createProperty,
 } from '@/lib/firebase/firestore';
+// Usar Admin SDK para operaciones de escritura (ignora las reglas de seguridad)
+import { createPropertyAdmin } from '@/lib/firebase/firestore-admin';
 import type { PropertyFilters } from '@/types/property';
 
 // GET - Obtener propiedades (todas, destacadas, o filtradas)
@@ -88,7 +89,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const propertyId = await createProperty(body);
+    const propertyId = await createPropertyAdmin(body);
     
     return NextResponse.json(
       { id: propertyId, message: 'Property created successfully' },

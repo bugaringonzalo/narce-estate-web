@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next dev",
+    "start": "next start",
     "lint": "eslint",
     "db:seed": "tsx scripts/seed-properties.ts"
   },
@@ -26,6 +26,7 @@
     "date-fns": "^4.1.0",
     "embla-carousel-react": "^8.6.0",
     "firebase": "^12.7.0",
+    "firebase-admin": "^13.6.0",
     "gsap": "^3.14.2",
     "ical.js": "^2.2.1",
     "lucide-react": "^0.562.0",
