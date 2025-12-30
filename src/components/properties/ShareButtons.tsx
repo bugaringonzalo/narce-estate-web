@@ -55,7 +55,7 @@ export function ShareButtons({ title, url, description }: ShareButtonsProps) {
           text: description,
           url: fullUrl,
         });
-      } catch (err) {
+      } catch {
         // User cancelled or error
       }
     }

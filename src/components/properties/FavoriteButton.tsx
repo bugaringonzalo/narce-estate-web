@@ -12,7 +12,7 @@ interface FavoriteButtonProps {
 }
 
 export function FavoriteButton({ propertyId, variant = 'default', className }: FavoriteButtonProps) {
-  const { toggleFavorite, isFavorite, isLoaded } = useFavorites();
+  const { toggleFavorite, isFavorite } = useFavorites();
 
   const isFav = isFavorite(propertyId);
 

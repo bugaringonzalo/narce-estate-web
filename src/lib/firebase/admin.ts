@@ -2,7 +2,7 @@
 // Firebase Admin SDK para operaciones del servidor
 // Este SDK ignora las reglas de seguridad de Firestore
 import { initializeApp, getApps, cert, App } from 'firebase-admin/app';
-import { getFirestore, Firestore } from 'firebase-admin/firestore';
+import { getFirestore } from 'firebase-admin/firestore';
 
 // Configuración del Admin SDK usando variables de entorno
 // La private key viene con \n escapados, hay que convertirlos
@@ -13,7 +13,6 @@ const serviceAccount = {
 };
 
 let adminApp: App;
-let adminDb: Firestore;
 
 // Inicializar solo si no existe ya una instancia
 if (getApps().length === 0) {
@@ -24,6 +23,6 @@ if (getApps().length === 0) {
   adminApp = getApps()[0];
 }
 
-adminDb = getFirestore(adminApp);
+const adminDb = getFirestore(adminApp);
 
 export { adminApp, adminDb };

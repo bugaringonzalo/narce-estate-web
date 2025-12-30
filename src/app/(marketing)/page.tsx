@@ -6,8 +6,8 @@ import { PropertyCard } from '@/components/properties/PropertyCard';
 import { HomePageClient } from '@/components/home/HomePageClient';
 import { getFeaturedProperties, getActiveProperties } from '@/lib/firebase/firestore';
 
-// Renderizar dinámicamente para evitar errores de Firebase en build
-export const dynamic = 'force-dynamic';
+// ISR: revalidar cada 60 segundos para mejor performance
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Narce Estate | Tu inmobiliaria de confianza en Buenos Aires',

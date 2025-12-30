@@ -8,7 +8,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useAvailability } from '@/hooks/useAvailability';
 import { format } from 'date-fns';
 import { es } from 'date-fns/locale';
-import { RefreshCw, CalendarDays, Info, Check, X } from 'lucide-react';
+import { RefreshCw, CalendarDays, Info } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 

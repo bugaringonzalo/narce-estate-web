@@ -7,8 +7,8 @@ import { PropertiesPageClient, AnimatedPropertyGrid } from '@/components/propert
 import { Skeleton } from '@/components/ui/skeleton';
 import type { Metadata } from 'next';
 
-// Renderizar dinámicamente
-export const dynamic = 'force-dynamic';
+// ISR: revalidar cada 60 segundos
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Propiedades | Narce Estate',

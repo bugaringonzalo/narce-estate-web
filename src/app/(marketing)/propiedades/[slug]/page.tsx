@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { getPropertyBySlug, getActiveProperties } from '@/lib/firebase/firestore';
 import { PropertyDetail } from '@/components/properties/PropertyDetail';
-import { LISTING_TYPE_LABELS, PROPERTY_TYPE_LABELS, CURRENCY_SYMBOLS } from '@/types/property';
+import { LISTING_TYPE_LABELS, CURRENCY_SYMBOLS } from '@/types/property';
 
 interface PropertyPageProps {
   params: Promise<{ slug: string }>;
@@ -69,8 +69,6 @@ export async function generateStaticParams() {
 // Componente para JSON-LD structured data
 function PropertyJsonLd({ property }: { property: Awaited<ReturnType<typeof getPropertyBySlug>> }) {
   if (!property) return null;
-
-  const symbol = CURRENCY_SYMBOLS[property.currency as keyof typeof CURRENCY_SYMBOLS] || '$';
 
   const jsonLd = {
     '@context': 'https://schema.org',

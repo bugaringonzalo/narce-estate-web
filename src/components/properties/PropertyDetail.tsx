@@ -3,7 +3,7 @@
 import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, Bed, MapPin, Ruler, Check, ExternalLink, ChevronLeft, ChevronRight, X, Calendar } from 'lucide-react';
+import { ArrowLeft, Bed, MapPin, Ruler, Check, ExternalLink, ChevronLeft, ChevronRight, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -50,7 +50,7 @@ export function PropertyDetail({ property }: PropertyDetailProps) {
   const mainImage = property.images[selectedImageIndex] || property.images[0];
 
   return (
-    <div className="min-h-screen pb-20">
+    <div className="min-h-screen pb-20 overflow-x-hidden">
       {/* Header con navegación */}
       <div className="sticky top-16 z-30 border-b bg-background/95 backdrop-blur md:top-20">
         <div className="container mx-auto flex items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
@@ -208,39 +208,39 @@ export function PropertyDetail({ property }: PropertyDetailProps) {
                 )}
               </div>
 
-              <h1 className="mb-2 text-3xl font-bold">{property.title}</h1>
+              <h1 className="mb-2 text-2xl sm:text-3xl font-bold break-words">{property.title}</h1>
 
-              <div className="mb-4 flex items-center gap-2 text-muted-foreground">
-                <MapPin className="h-5 w-5" />
-                <span>{property.address}, {property.neighborhood}, {property.city}</span>
+              <div className="mb-4 flex items-start gap-2 text-muted-foreground">
+                <MapPin className="h-5 w-5 flex-shrink-0 mt-0.5" />
+                <span className="text-sm sm:text-base">{property.address}, {property.neighborhood}, {property.city}</span>
               </div>
 
-              <p className="text-4xl font-bold text-primary">
+              <p className="text-3xl sm:text-4xl font-bold text-primary">
                 {formatPrice(property.price, property.currency)}
                 {property.listingType !== 'sale' && (
-                  <span className="text-lg font-normal text-muted-foreground"> /mes</span>
+                  <span className="text-base sm:text-lg font-normal text-muted-foreground"> /mes</span>
                 )}
               </p>
             </div>
 
             {/* Características principales */}
-            <div className="grid grid-cols-3 gap-4 rounded-xl bg-muted/50 p-6">
+            <div className="grid grid-cols-3 gap-2 sm:gap-4 rounded-xl bg-muted/50 p-4 sm:p-6">
               <div className="text-center">
-                <Bed className="mx-auto mb-2 h-8 w-8 text-primary" />
-                <p className="text-2xl font-bold">{property.bedrooms}</p>
-                <p className="text-sm text-muted-foreground">Ambientes</p>
+                <Bed className="mx-auto mb-1 sm:mb-2 h-6 w-6 sm:h-8 sm:w-8 text-primary" />
+                <p className="text-xl sm:text-2xl font-bold">{property.bedrooms}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">Amb.</p>
               </div>
               <div className="text-center">
-                <div className="mx-auto mb-2 flex h-8 w-8 items-center justify-center text-2xl text-primary">
+                <div className="mx-auto mb-1 sm:mb-2 flex h-6 w-6 sm:h-8 sm:w-8 items-center justify-center text-xl sm:text-2xl text-primary">
                   🚿
                 </div>
-                <p className="text-2xl font-bold">{property.bathrooms}</p>
-                <p className="text-sm text-muted-foreground">Baños</p>
+                <p className="text-xl sm:text-2xl font-bold">{property.bathrooms}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">Baños</p>
               </div>
               <div className="text-center">
-                <Ruler className="mx-auto mb-2 h-8 w-8 text-primary" />
-                <p className="text-2xl font-bold">{property.area}</p>
-                <p className="text-sm text-muted-foreground">m² totales</p>
+                <Ruler className="mx-auto mb-1 sm:mb-2 h-6 w-6 sm:h-8 sm:w-8 text-primary" />
+                <p className="text-xl sm:text-2xl font-bold">{property.area}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">m²</p>
               </div>
             </div>
 

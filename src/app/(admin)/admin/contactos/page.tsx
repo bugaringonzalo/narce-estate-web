@@ -160,7 +160,7 @@ export default function ContactosPage() {
           <CardContent>
             <div className="space-y-4">
               {contacts.map((contact) => {
-                const StatusIcon = statusConfig[contact.status].icon;
+                // const StatusIcon = statusConfig[contact.status].icon;
                 return (
                   <div
                     key={contact.id}

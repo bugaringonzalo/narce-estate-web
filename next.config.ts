@@ -13,10 +13,6 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  // React Compiler (Next.js 15 experimental feature)
-  experimental: {
-    reactCompiler: true,
-  },
 };
 
 export default nextConfig;

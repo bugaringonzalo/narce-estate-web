@@ -1,7 +1,7 @@
 // src/components/animations/SectionTransition.tsx
 'use client';
 
-import { useRef, ReactNode } from 'react';
+import { useRef, ReactNode, useState, useEffect } from 'react';
 import { useGSAP } from '@gsap/react';
 import { gsap, ScrollTrigger } from '@/lib/gsap/gsapConfig';
 import { cn } from '@/lib/utils';
@@ -46,9 +46,14 @@ export const SectionTransition: React.FC<SectionTransitionProps> = ({
   once = true,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useGSAP(() => {
-    if (!ref.current) return;
+    if (!ref.current || !isMounted) return;
 
     const element = ref.current;
 
@@ -125,9 +130,8 @@ export const SectionTransition: React.FC<SectionTransitionProps> = ({
 
     const config = getAnimationConfig();
 
-    gsap.set(element, config.from);
-
-    gsap.to(element, {
+    // Usar fromTo en lugar de set + to para evitar hydration mismatch
+    gsap.fromTo(element, config.from, {
       ...config.to,
       duration,
       delay,
@@ -160,7 +164,7 @@ export const SectionTransition: React.FC<SectionTransitionProps> = ({
         .filter((trigger) => trigger.vars.trigger === element)
         .forEach((trigger) => trigger.kill());
     };
-  }, [type, duration, delay, distance, threshold, once]);
+  }, [type, duration, delay, distance, threshold, once, isMounted]);
 
   return (
     <div
@@ -256,17 +260,14 @@ export const MaskReveal: React.FC<MaskRevealProps> = ({
   const containerRef = useRef<HTMLDivElement>(null);
   const maskRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useGSAP(() => {
-    if (!containerRef.current || !maskRef.current || !contentRef.current) return;
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: containerRef.current,
-        start: 'top 80%',
-        toggleActions: 'play none none none',
-      },
-    });
+    if (!containerRef.current || !maskRef.current || !contentRef.current || !isMounted) return;
 
     const getMaskAnimation = () => {
       switch (direction) {
@@ -283,8 +284,13 @@ export const MaskReveal: React.FC<MaskRevealProps> = ({
 
     const maskAnim = getMaskAnimation();
 
-    // Contenido oculto inicialmente
-    gsap.set(contentRef.current, { opacity: 0 });
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: 'top 80%',
+        toggleActions: 'play none none none',
+      },
+    });
 
     // Mascara entra
     tl.fromTo(
@@ -298,9 +304,10 @@ export const MaskReveal: React.FC<MaskRevealProps> = ({
       }
     );
 
-    // Contenido aparece mientras mascara esta encima
-    tl.to(
+    // Contenido aparece mientras mascara esta encima (usar fromTo)
+    tl.fromTo(
       contentRef.current,
+      { opacity: 0 },
       { opacity: 1, duration: 0.01 },
       `-=${duration / 4}`
     );
@@ -317,7 +324,7 @@ export const MaskReveal: React.FC<MaskRevealProps> = ({
         .filter((trigger) => trigger.vars.trigger === containerRef.current)
         .forEach((trigger) => trigger.kill());
     };
-  }, [direction, duration, delay]);
+  }, [direction, duration, delay, isMounted]);
 
   return (
     <div ref={containerRef} className={cn('relative overflow-hidden', className)}>

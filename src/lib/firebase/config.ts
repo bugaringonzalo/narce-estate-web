@@ -1,8 +1,8 @@
 // src/lib/firebase/config.ts
 import { initializeApp, getApps, FirebaseApp } from 'firebase/app';
-import { getFirestore, Firestore } from 'firebase/firestore';
-import { getAuth, Auth } from 'firebase/auth';
-import { getStorage, FirebaseStorage } from 'firebase/storage';
+import { getFirestore } from 'firebase/firestore';
+import { getAuth } from 'firebase/auth';
+import { getStorage } from 'firebase/storage';
 
 // Configuración de Firebase desde variables de entorno
 const firebaseConfig = {
@@ -17,9 +17,6 @@ const firebaseConfig = {
 // Inicializar Firebase solo si no existe ya una instancia
 // Esto evita errores de "app already initialized" en desarrollo con hot reload
 let app: FirebaseApp;
-let db: Firestore;
-let auth: Auth;
-let storage: FirebaseStorage;
 
 if (getApps().length === 0) {
   app = initializeApp(firebaseConfig);
@@ -28,8 +25,8 @@ if (getApps().length === 0) {
 }
 
 // Inicializar servicios
-db = getFirestore(app);
-auth = getAuth(app);
-storage = getStorage(app);
+const db = getFirestore(app);
+const auth = getAuth(app);
+const storage = getStorage(app);
 
 export { app, db, auth, storage };

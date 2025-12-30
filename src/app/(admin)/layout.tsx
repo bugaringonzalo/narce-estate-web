@@ -4,9 +4,10 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { Home, Building, Settings, User, LogOut, Mail } from 'lucide-react';
+import { Home, Building, Settings, User, LogOut, Mail, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { onAuthChange, signOut, AuthUser } from '@/lib/firebase/auth';
+import { cn } from '@/lib/utils';
 
 interface AdminLayoutProps {
   children: React.ReactNode;
@@ -42,6 +43,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Si es la página de login, renderizar sin sidebar
   const isLoginPage = pathname === '/admin/login';
@@ -60,6 +62,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
     return () => unsubscribe();
   }, [router, isLoginPage]);
+
+  // Cerrar sidebar cuando cambia la ruta (mobile)
+  useEffect(() => {
+    setSidebarOpen(false);
+  }, [pathname]);
 
   const isActivePath = (path: string): boolean => {
     if (path === '/admin') {
@@ -105,8 +112,37 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
 
   return (
     <div className="min-h-screen bg-muted/30">
+      {/* Mobile header */}
+      <header className="fixed left-0 right-0 top-0 z-50 flex h-16 items-center justify-between border-b bg-background px-4 md:hidden">
+        <Link href="/admin" className="flex items-center gap-2">
+          <Building className="h-5 w-5 text-primary" />
+          <span className="font-bold">Narce Admin</span>
+        </Link>
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          aria-label={sidebarOpen ? 'Cerrar menú' : 'Abrir menú'}
+        >
+          {sidebarOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </Button>
+      </header>
+
+      {/* Overlay para cerrar sidebar en mobile */}
+      {sidebarOpen && (
+        <div
+          className="fixed inset-0 z-40 bg-black/50 md:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
-      <aside className="fixed left-0 top-0 z-40 h-screen w-64 border-r bg-background">
+      <aside
+        className={cn(
+          'fixed left-0 top-0 z-50 h-screen w-64 border-r bg-background transition-transform duration-300 md:translate-x-0',
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        )}
+      >
         {/* Logo */}
         <div className="flex h-16 items-center border-b px-6">
           <Link href="/admin" className="flex items-center gap-2">
@@ -125,12 +161,12 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
               <Link
                 key={link.href}
                 href={link.href}
-                className={
-                  'flex items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium transition-colors ' +
-                  (isActive
+                className={cn(
+                  'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
+                  isActive
                     ? 'bg-primary text-primary-foreground'
-                    : 'text-muted-foreground hover:bg-muted hover:text-foreground')
-                }
+                    : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+                )}
               >
                 <Icon className="h-5 w-5" />
                 {link.label}
@@ -177,8 +213,8 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       </aside>
 
       {/* Main content */}
-      <main className="pl-64">
-        <div className="min-h-screen p-8">
+      <main className="min-h-screen pt-16 md:pl-64 md:pt-0">
+        <div className="p-4 md:p-8">
           {children}
         </div>
       </main>

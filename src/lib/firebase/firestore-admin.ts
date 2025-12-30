@@ -2,7 +2,7 @@
 // Operaciones de Firestore usando Admin SDK (para API Routes del servidor)
 // Este archivo se usa para operaciones que requieren permisos de escritura
 import { adminDb } from './admin';
-import { FieldValue, Timestamp } from 'firebase-admin/firestore';
+import { FieldValue } from 'firebase-admin/firestore';
 import type { Property, PropertyFormData } from '@/types/property';
 
 const PROPERTIES_COLLECTION = 'properties';

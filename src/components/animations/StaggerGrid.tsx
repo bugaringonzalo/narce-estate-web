@@ -1,7 +1,7 @@
 // src/components/animations/StaggerGrid.tsx
 'use client';
 
-import { useRef, ReactNode, Children } from 'react';
+import { useRef, ReactNode, Children, useState, useEffect } from 'react';
 import { useGSAP } from '@gsap/react';
 import { gsap, ScrollTrigger } from '@/lib/gsap/gsapConfig';
 import { cn } from '@/lib/utils';
@@ -34,9 +34,15 @@ export const StaggerGrid: React.FC<StaggerGridProps> = ({
   useScrollTrigger = true,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isMounted, setIsMounted] = useState(false);
+
+  // Esperar a que el componente esté montado para evitar hydration mismatch
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   useGSAP(() => {
-    if (!containerRef.current) return;
+    if (!containerRef.current || !isMounted) return;
 
     const items = containerRef.current.children;
     if (items.length === 0) return;
@@ -74,9 +80,8 @@ export const StaggerGrid: React.FC<StaggerGridProps> = ({
     };
 
     if (useScrollTrigger) {
-      gsap.set(items, getFromConfig());
-
-      gsap.to(items, {
+      // Usar fromTo en lugar de set + to para evitar flash
+      gsap.fromTo(items, getFromConfig(), {
         ...toConfig,
         scrollTrigger: {
           trigger: containerRef.current,
@@ -93,7 +98,7 @@ export const StaggerGrid: React.FC<StaggerGridProps> = ({
         .filter((trigger) => trigger.vars.trigger === containerRef.current)
         .forEach((trigger) => trigger.kill());
     };
-  }, [stagger, duration, distance, direction, delay, useScrollTrigger, Children.count(children)]);
+  }, [stagger, duration, distance, direction, delay, useScrollTrigger, Children.count(children), isMounted]);
 
   return (
     <div ref={containerRef} className={cn('', className)}>

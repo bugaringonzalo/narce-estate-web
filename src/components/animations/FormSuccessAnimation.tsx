@@ -1,11 +1,11 @@
 // src/components/animations/FormSuccessAnimation.tsx
 'use client';
 
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 import { useGSAP } from '@gsap/react';
 import { gsap } from '@/lib/gsap/gsapConfig';
 import { cn } from '@/lib/utils';
-import { Check, Sparkles, Send, Mail, Rocket } from 'lucide-react';
+import { Check, Sparkles, Mail, Rocket } from 'lucide-react';
 
 interface FormSuccessAnimationProps {
   isVisible: boolean;

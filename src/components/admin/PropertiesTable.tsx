@@ -212,7 +212,7 @@ export function PropertiesTable({ properties }: PropertiesTableProps) {
           <DialogHeader>
             <DialogTitle>Eliminar propiedad</DialogTitle>
             <DialogDescription>
-              ¿Estás seguro de que querés eliminar "{propertyToDelete?.title}"?
+              ¿Estás seguro de que querés eliminar &ldquo;{propertyToDelete?.title}&rdquo;?
               Esta acción desactivará la propiedad del sitio.
             </DialogDescription>
           </DialogHeader>

@@ -13,6 +13,17 @@ const eslintConfig = defineConfig([
     "build/**",
     "next-env.d.ts",
   ]),
+  // Custom rules
+  {
+    rules: {
+      // Permitir setState en useEffect (patrón válido para detectar montaje)
+      "react-hooks/set-state-in-effect": "off",
+      // Permitir <img> en casos específicos (admin, etc)
+      "@next/next/no-img-element": "warn",
+      // Relajar regla de any para casos edge
+      "@typescript-eslint/no-explicit-any": "warn",
+    },
+  },
 ]);
 
 export default eslintConfig;

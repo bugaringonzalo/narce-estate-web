@@ -401,7 +401,7 @@ export function PropertyForm({ property, mode }: PropertyFormProps) {
                 <Label htmlFor="listingType">Tipo de Operación *</Label>
                 <Select
                   defaultValue={watch('listingType')}
-                  onValueChange={(value) => setValue('listingType', value as any)}
+                  onValueChange={(value) => setValue('listingType', value as PropertyFormData['listingType'])}
                 >
                   <SelectTrigger>
                     <SelectValue />
@@ -420,7 +420,7 @@ export function PropertyForm({ property, mode }: PropertyFormProps) {
                 <Label htmlFor="propertyType">Tipo de Propiedad *</Label>
                 <Select
                   defaultValue={watch('propertyType')}
-                  onValueChange={(value) => setValue('propertyType', value as any)}
+                  onValueChange={(value) => setValue('propertyType', value as PropertyFormData['propertyType'])}
                 >
                   <SelectTrigger>
                     <SelectValue />
@@ -449,7 +449,7 @@ export function PropertyForm({ property, mode }: PropertyFormProps) {
                   <Label htmlFor="currency">Moneda</Label>
                   <Select
                     defaultValue={watch('currency')}
-                    onValueChange={(value) => setValue('currency', value as any)}
+                    onValueChange={(value) => setValue('currency', value as PropertyFormData['currency'])}
                   >
                     <SelectTrigger>
                       <SelectValue />
