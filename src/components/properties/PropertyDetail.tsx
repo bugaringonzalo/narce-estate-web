@@ -3,13 +3,14 @@
 import { useState, useCallback } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { ArrowLeft, Bed, MapPin, Ruler, Check, ExternalLink, ChevronLeft, ChevronRight, X } from 'lucide-react';
+import { ArrowLeft, Bed, MapPin, Ruler, Check, ExternalLink, ChevronLeft, ChevronRight, X, Calendar } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent } from '@/components/ui/dialog';
 import { ShareButtons } from './ShareButtons';
 import { FavoriteButton } from './FavoriteButton';
+import { AvailabilityCalendar } from './AvailabilityCalendar';
 import type { Property } from '@/types/property';
 import {
   PROPERTY_TYPE_LABELS,
@@ -277,6 +278,11 @@ export function PropertyDetail({ property }: PropertyDetailProps) {
 
           {/* Sidebar */}
           <div className="space-y-6">
+            {/* Calendario de disponibilidad (solo para alquiler temporario con iCal) */}
+            {property.listingType === 'temporary' && property.icalUrl && (
+              <AvailabilityCalendar propertyId={property.id} />
+            )}
+
             {/* Card de contacto */}
             <Card className="sticky top-40">
               <CardHeader>
