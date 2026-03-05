@@ -10,8 +10,8 @@ import { getFeaturedProperties, getActiveProperties } from '@/lib/firebase/fires
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: 'Narce Estate | Tu inmobiliaria de confianza en Buenos Aires',
-  description: 'Encontrá tu próximo hogar con Narce Estate. Propiedades en venta, alquiler y alquiler temporal en Buenos Aires.',
+  title: 'Arce Monsegur | Estrategias en Real Estate y Finanzas',
+  description: 'Estrategias inmobiliarias con visión financiera. Inversiones, compra, venta, alquileres y renta temporaria en Buenos Aires.',
 };
 
 // Skeleton para propiedades

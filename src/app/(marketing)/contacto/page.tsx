@@ -132,10 +132,10 @@ export default function ContactoPage() {
                   <div>
                     <p className="text-sm font-medium">Email</p>
                     <a
-                      href="mailto:contacto@narce.com"
+                      href="mailto:info@arcemonsegur.com"
                       className="text-sm text-muted-foreground hover:text-primary transition-colors"
                     >
-                      contacto@narce.com
+                      info@arcemonsegur.com
                     </a>
                   </div>
                 </div>

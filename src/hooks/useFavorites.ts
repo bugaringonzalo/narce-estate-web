@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 
-const FAVORITES_KEY = 'narce_favorites';
+const FAVORITES_KEY = 'arce_favorites';
 
 export function useFavorites() {
   const [favorites, setFavorites] = useState<string[]>([]);

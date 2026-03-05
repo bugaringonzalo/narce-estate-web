@@ -29,7 +29,7 @@ export function DashboardStats({
         <div>
           <h1 className="text-3xl font-bold">Dashboard</h1>
           <p className="text-muted-foreground">
-            Bienvenido al panel de administración de Narce Estate
+            Bienvenido al panel de administración de Arce Monsegur
           </p>
         </div>
         <Link href="/admin/propiedades/nueva">

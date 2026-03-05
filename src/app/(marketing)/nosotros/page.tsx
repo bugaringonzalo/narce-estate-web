@@ -97,10 +97,10 @@ export default function NosotrosPage() {
 
               <StaggerGrid className="space-y-4 text-muted-foreground" stagger={0.1} direction="up">
                 <p>
-                  Narce Estate nació de la pasión por conectar personas con sus hogares
-                  ideales. Desde nuestros inicios, nos propusimos ofrecer un servicio
-                  diferente: cercano, transparente y enfocado en las necesidades reales
-                  de cada cliente.
+                  Arce Monsegur nació de la convicción de que el real estate requiere
+                  visión estratégica y análisis financiero. Desde nuestros inicios, nos propusimos
+                  ofrecer un servicio diferente: profesional, transparente y enfocado en los
+                  objetivos reales de cada cliente.
                 </p>
                 <p>
                   A lo largo de los años, hemos construido relaciones duraderas basadas

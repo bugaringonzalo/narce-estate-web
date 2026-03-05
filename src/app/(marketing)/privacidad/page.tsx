@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Política de Privacidad',
-  description: 'Política de privacidad de Narce Estate. Conocé cómo protegemos tu información personal.',
+  description: 'Política de privacidad de Arce Monsegur. Conocé cómo protegemos tu información personal.',
 };
 
 export default function PrivacidadPage() {
@@ -25,7 +25,7 @@ export default function PrivacidadPage() {
         <div className="prose prose-gray mx-auto max-w-3xl dark:prose-invert">
           <h2>1. Información que recopilamos</h2>
           <p>
-            En Narce Estate, recopilamos información que nos proporcionás directamente cuando:
+            En Arce Monsegur, recopilamos información que nos proporcionás directamente cuando:
           </p>
           <ul>
             <li>Completás el formulario de contacto</li>
@@ -90,7 +90,7 @@ export default function PrivacidadPage() {
             Si tenés preguntas sobre esta política de privacidad, podés contactarnos a través de:
           </p>
           <ul>
-            <li>Email: contacto@narceestate.com</li>
+            <li>Email: info@arcemonsegur.com</li>
             <li>Formulario de contacto en nuestro sitio web</li>
           </ul>
         </div>

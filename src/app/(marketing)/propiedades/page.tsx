@@ -11,7 +11,7 @@ import type { Metadata } from 'next';
 export const revalidate = 60;
 
 export const metadata: Metadata = {
-  title: 'Propiedades | Narce Estate',
+  title: 'Propiedades | Arce Monsegur',
   description: 'Explorá nuestra selección de propiedades en venta y alquiler en Buenos Aires.',
 };
 

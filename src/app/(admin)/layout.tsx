@@ -116,7 +116,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
       <header className="fixed left-0 right-0 top-0 z-50 flex h-16 items-center justify-between border-b bg-background px-4 md:hidden">
         <Link href="/admin" className="flex items-center gap-2">
           <Building className="h-5 w-5 text-primary" />
-          <span className="font-bold">Narce Admin</span>
+          <span className="font-bold">Arce Admin</span>
         </Link>
         <Button
           variant="ghost"
@@ -147,7 +147,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         <div className="flex h-16 items-center border-b px-6">
           <Link href="/admin" className="flex items-center gap-2">
             <Building className="text-primary" />
-            <span className="text-lg font-bold">Narce Admin</span>
+            <span className="text-lg font-bold">Arce Admin</span>
           </Link>
         </div>
 

@@ -48,7 +48,7 @@ export default function AdminLoginPage() {
           <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground">
             <Building24Regular className="h-6 w-6" />
           </div>
-          <CardTitle className="text-2xl">Narce Admin</CardTitle>
+          <CardTitle className="text-2xl">Arce Admin</CardTitle>
           <CardDescription>
             Ingresá con tu cuenta para acceder al panel de administración
           </CardDescription>
@@ -66,7 +66,7 @@ export default function AdminLoginPage() {
               <Input
                 id="email"
                 type="email"
-                placeholder="admin@narce.com"
+                placeholder="admin@arcemonsegur.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required

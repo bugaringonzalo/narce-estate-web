@@ -20,7 +20,7 @@ export const Footer: React.FC = () => {
           <div className="space-y-4">
             <Logo />
             <p className="text-sm text-muted-foreground">
-              Tu inmobiliaria de confianza para encontrar la propiedad perfecta.
+              Estrategias en Real Estate y Finanzas
             </p>
           </div>
 
@@ -70,8 +70,8 @@ export const Footer: React.FC = () => {
               </li>
               <li className="flex items-center gap-2 text-sm text-muted-foreground">
                 <Mail24Regular className="flex-shrink-0" />
-                <a href="mailto:info@narceestate.com" className="hover:text-primary transition-colors">
-                  info@narceestate.com
+                <a href="mailto:info@arcemonsegur.com" className="hover:text-primary transition-colors">
+                  info@arcemonsegur.com
                 </a>
               </li>
               <li className="flex items-start gap-2 text-sm text-muted-foreground">
@@ -86,7 +86,7 @@ export const Footer: React.FC = () => {
         <div className="mt-12 pt-8 border-t">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-sm text-muted-foreground">
-              © {currentYear} Narce Estate. Todos los derechos reservados.
+              © {currentYear} Arce Monsegur. Todos los derechos reservados.
             </p>
             <div className="flex gap-6">
               {footerNavigation.legal.map((link) => (

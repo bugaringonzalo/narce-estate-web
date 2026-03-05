@@ -75,7 +75,7 @@ export const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose }) => {
         {/* Footer del menú */}
         <div className="absolute bottom-0 left-0 right-0 p-6 border-t bg-muted/30">
           <p className="text-xs text-muted-foreground text-center">
-            © {new Date().getFullYear()} Narce Estate
+            © {new Date().getFullYear()} Arce Monsegur
           </p>
         </div>
       </SheetContent>

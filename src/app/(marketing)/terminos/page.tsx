@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Términos y Condiciones',
-  description: 'Términos y condiciones de uso del sitio web de Narce Estate.',
+  description: 'Términos y condiciones de uso del sitio web de Arce Monsegur.',
 };
 
 export default function TerminosPage() {
@@ -25,14 +25,14 @@ export default function TerminosPage() {
         <div className="prose prose-gray mx-auto max-w-3xl dark:prose-invert">
           <h2>1. Aceptación de los términos</h2>
           <p>
-            Al acceder y utilizar el sitio web de Narce Estate, aceptás estos
+            Al acceder y utilizar el sitio web de Arce Monsegur, aceptás estos
             términos y condiciones en su totalidad. Si no estás de acuerdo con
             estos términos, te pedimos que no utilices nuestro sitio.
           </p>
 
           <h2>2. Descripción del servicio</h2>
           <p>
-            Narce Estate es una plataforma inmobiliaria que ofrece servicios de:
+            Arce Monsegur es una plataforma inmobiliaria que ofrece servicios de:
           </p>
           <ul>
             <li>Publicación de propiedades en venta</li>
@@ -61,13 +61,13 @@ export default function TerminosPage() {
           <h2>5. Propiedad intelectual</h2>
           <p>
             Todo el contenido del sitio, incluyendo textos, imágenes, logos y diseño,
-            es propiedad de Narce Estate o sus licenciantes y está protegido por
+            es propiedad de Arce Monsegur o sus licenciantes y está protegido por
             las leyes de propiedad intelectual.
           </p>
 
           <h2>6. Limitación de responsabilidad</h2>
           <p>
-            Narce Estate no se hace responsable de:
+            Arce Monsegur no se hace responsable de:
           </p>
           <ul>
             <li>Errores u omisiones en la información publicada</li>
@@ -85,7 +85,7 @@ export default function TerminosPage() {
 
           <h2>8. Intermediación inmobiliaria</h2>
           <p>
-            Narce Estate actúa como intermediario entre compradores/inquilinos
+            Arce Monsegur actúa como intermediario entre compradores/inquilinos
             y propietarios. Las transacciones finales están sujetas a las
             condiciones acordadas entre las partes y a la legislación vigente.
           </p>
@@ -109,7 +109,7 @@ export default function TerminosPage() {
             Para consultas sobre estos términos, contactanos a través de:
           </p>
           <ul>
-            <li>Email: contacto@narceestate.com</li>
+            <li>Email: info@arcemonsegur.com</li>
             <li>Formulario de contacto en nuestro sitio web</li>
           </ul>
         </div>

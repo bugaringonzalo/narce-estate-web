@@ -1,4 +1,4 @@
-// Templates de email para Narce Estate
+// Templates de email para Arce Monsegur
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://real-estate-web-neon.vercel.app';
 const WHATSAPP_NUMBER = '5491112345678'; // Cambiar por el número real
@@ -31,7 +31,7 @@ export function getContactConfirmationTemplate(data: ContactConfirmationData): s
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Recibimos tu consulta - Narce Estate</title>
+  <title>Recibimos tu consulta - Arce Monsegur</title>
 </head>
 <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f5f5;">
 
@@ -45,10 +45,10 @@ export function getContactConfirmationTemplate(data: ContactConfirmationData): s
           <tr>
             <td style="background: linear-gradient(135deg, #1a365d 0%, #2d5a87 100%); padding: 30px 40px; text-align: center;">
               <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 600; letter-spacing: 2px;">
-                NARCE ESTATE
+                ARCE MONSEGUR
               </h1>
               <p style="margin: 8px 0 0 0; color: #a0c4e8; font-size: 14px;">
-                Tu inmobiliaria de confianza
+                Estrategias en Real Estate y Finanzas
               </p>
             </td>
           </tr>
@@ -164,7 +164,7 @@ export function getContactConfirmationTemplate(data: ContactConfirmationData): s
               <table role="presentation" cellspacing="0" cellpadding="0">
                 <tr>
                   <td style="padding-right: 10px;">
-                    <a href="https://wa.me/${WHATSAPP_NUMBER}?text=Hola%20Narce%20Estate!%20Hice%20una%20consulta%20por%20la%20web" style="display: inline-block; background-color: #25d366; color: #ffffff; text-decoration: none; padding: 14px 24px; border-radius: 8px; font-size: 14px; font-weight: 600;">
+                    <a href="https://wa.me/${WHATSAPP_NUMBER}?text=Hola%20Arce%20Monsegur!%20Hice%20una%20consulta%20por%20la%20web" style="display: inline-block; background-color: #25d366; color: #ffffff; text-decoration: none; padding: 14px 24px; border-radius: 8px; font-size: 14px; font-weight: 600;">
                       WhatsApp
                     </a>
                   </td>
@@ -195,16 +195,16 @@ export function getContactConfirmationTemplate(data: ContactConfirmationData): s
                 <tr>
                   <td style="text-align: center;">
                     <p style="margin: 0 0 10px 0; color: #1a365d; font-size: 18px; font-weight: 600; letter-spacing: 1px;">
-                      NARCE ESTATE
+                      ARCE MONSEGUR
                     </p>
                     <p style="margin: 0 0 5px 0; color: #718096; font-size: 13px;">
                       Buenos Aires, Argentina
                     </p>
                     <p style="margin: 0 0 15px 0; color: #718096; font-size: 13px;">
-                      contacto@narceestate.com
+                      info@arcemonsegur.com
                     </p>
                     <p style="margin: 0; color: #2d5a87; font-size: 13px;">
-                      <a href="${SITE_URL}" style="color: #2d5a87; text-decoration: none;">narceestate.com</a>
+                      <a href="${SITE_URL}" style="color: #2d5a87; text-decoration: none;">arcemonsegur.com</a>
                     </p>
                   </td>
                 </tr>
@@ -215,7 +215,7 @@ export function getContactConfirmationTemplate(data: ContactConfirmationData): s
         </table>
 
         <p style="margin: 20px 0 0 0; color: #a0aec0; font-size: 12px; text-align: center;">
-          © ${new Date().getFullYear()} Narce Estate. Todos los derechos reservados.
+          © ${new Date().getFullYear()} Arce Monsegur. Todos los derechos reservados.
         </p>
 
       </td>
@@ -237,7 +237,7 @@ export function getContactNotificationTemplate(data: ContactNotificationData): s
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Nueva consulta - Narce Estate</title>
+  <title>Nueva consulta - Arce Monsegur</title>
 </head>
 <body style="margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f5f5f5;">
 

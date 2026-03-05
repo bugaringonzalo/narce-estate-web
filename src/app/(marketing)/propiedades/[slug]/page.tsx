@@ -39,7 +39,7 @@ export async function generateMetadata({
       description,
       type: 'website',
       url: `${siteUrl}/propiedades/${property.slug}`,
-      siteName: 'Narce Estate',
+      siteName: 'Arce Monsegur',
       locale: 'es_AR',
       images: property.images[0] ? [{
         url: property.images[0],

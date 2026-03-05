@@ -6,7 +6,7 @@ import { Resend } from 'resend';
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Email de destino (donde llegan los mensajes de contacto)
-const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'contacto@narce.com';
+const CONTACT_EMAIL = process.env.CONTACT_EMAIL || 'info@arcemonsegur.com';
 
 // Email del remitente (debe ser un dominio verificado en Resend o usar onboarding@resend.dev para testing)
 const FROM_EMAIL = process.env.FROM_EMAIL || 'onboarding@resend.dev';
@@ -69,14 +69,14 @@ export async function POST(request: NextRequest) {
 
         <hr style="border: none; border-top: 1px solid #e5e5e5; margin: 20px 0;" />
         <p style="color: #888; font-size: 12px;">
-          Este mensaje fue enviado desde el formulario de contacto de Narce Estate.
+          Este mensaje fue enviado desde el formulario de contacto de Arce Monsegur.
         </p>
       </div>
     `;
 
     // Enviar email al equipo
     const { data, error } = await resend.emails.send({
-      from: `Narce Estate <${FROM_EMAIL}>`,
+      from: `Arce Monsegur <${FROM_EMAIL}>`,
       to: [CONTACT_EMAIL],
       replyTo: body.email,
       subject: subject,
@@ -111,23 +111,23 @@ export async function POST(request: NextRequest) {
 
         <p style="color: #555;">
           Mientras tanto, podés seguir explorando nuestras propiedades en
-          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://narceestate.com'}" style="color: #0066cc;">
+          <a href="${process.env.NEXT_PUBLIC_SITE_URL || 'https://arcemonsegur.com'}" style="color: #0066cc;">
             nuestro sitio web
           </a>.
         </p>
 
         <hr style="border: none; border-top: 1px solid #e5e5e5; margin: 20px 0;" />
         <p style="color: #888; font-size: 12px;">
-          Narce Estate - Tu inmobiliaria de confianza
+          Arce Monsegur - Estrategias en Real Estate y Finanzas
         </p>
       </div>
     `;
 
     // Intentar enviar confirmación (no bloqueante)
     resend.emails.send({
-      from: `Narce Estate <${FROM_EMAIL}>`,
+      from: `Arce Monsegur <${FROM_EMAIL}>`,
       to: [body.email],
-      subject: 'Recibimos tu consulta - Narce Estate',
+      subject: 'Recibimos tu consulta - Arce Monsegur',
       html: confirmationHtml,
     }).catch((err) => {
       console.error('Error sending confirmation email:', err);
