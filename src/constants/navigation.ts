@@ -3,15 +3,28 @@ export interface NavLink {
   label: string;
 }
 
+// Navegación principal: las 4 áreas de servicio
 export const mainNavigation: NavLink[] = [
   {
-    href: '/',
-    label: 'Inicio',
+    href: '/inversiones',
+    label: 'Inversiones',
   },
   {
-    href: '/propiedades',
-    label: 'Propiedades',
+    href: '/compra-venta',
+    label: 'Compra / Venta',
   },
+  {
+    href: '/alquileres',
+    label: 'Alquileres',
+  },
+  {
+    href: '/alquileres-temporales',
+    label: 'Temporales',
+  },
+];
+
+// Navegación secundaria: páginas institucionales
+export const secondaryNavigation: NavLink[] = [
   {
     href: '/nosotros',
     label: 'Nosotros',
@@ -23,10 +36,11 @@ export const mainNavigation: NavLink[] = [
 ];
 
 export const footerNavigation = {
-  propiedades: [
-    { href: '/propiedades?type=sale', label: 'En Venta' },
-    { href: '/propiedades?type=rent', label: 'En Alquiler' },
-    { href: '/propiedades?type=temporary', label: 'Alquiler Temporal' },
+  servicios: [
+    { href: '/inversiones', label: 'Inversiones Inmobiliarias' },
+    { href: '/compra-venta', label: 'Compra / Venta' },
+    { href: '/alquileres', label: 'Alquileres' },
+    { href: '/alquileres-temporales', label: 'Alquileres Temporales' },
   ],
   empresa: [
     { href: '/nosotros', label: 'Nosotros' },

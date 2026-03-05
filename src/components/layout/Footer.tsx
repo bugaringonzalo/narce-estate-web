@@ -24,11 +24,11 @@ export const Footer: React.FC = () => {
             </p>
           </div>
 
-          {/* Propiedades */}
+          {/* Servicios */}
           <div>
-            <h3 className="font-semibold mb-4">Propiedades</h3>
+            <h3 className="font-semibold mb-4">Servicios</h3>
             <ul className="space-y-3">
-              {footerNavigation.propiedades.map((link) => (
+              {footerNavigation.servicios.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}

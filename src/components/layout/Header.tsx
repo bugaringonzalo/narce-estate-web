@@ -9,7 +9,7 @@ import { Navigation24Regular } from '@fluentui/react-icons';
 import { Button } from '@/components/ui/button';
 import { Logo } from './Logo';
 import { MobileNav } from './MobileNav';
-import { mainNavigation } from '@/constants';
+import { mainNavigation, secondaryNavigation } from '@/constants';
 
 export const Header: React.FC = () => {
   const headerRef = useRef<HTMLElement>(null);
@@ -48,17 +48,17 @@ export const Header: React.FC = () => {
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <Logo />
+            <Logo showTagline />
 
-            {/* Desktop Navigation */}
-            <nav className="hidden md:flex items-center gap-8">
+            {/* Desktop Navigation — servicios principales */}
+            <nav className="hidden lg:flex items-center gap-6">
               {mainNavigation.map((link) => (
                 <Link
                   key={link.href}
                   href={link.href}
-                  className={'text-sm font-medium transition-colors hover:text-primary ' + (
+                  className={'text-sm font-semibold transition-colors hover:text-foreground ' + (
                     isActivePath(link.href)
-                      ? 'text-primary'
+                      ? 'text-foreground'
                       : 'text-muted-foreground'
                   )}
                 >
@@ -67,11 +67,31 @@ export const Header: React.FC = () => {
               ))}
             </nav>
 
+            {/* Desktop — nav secundaria + CTA */}
+            <div className="hidden lg:flex items-center gap-4">
+              {secondaryNavigation.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={'text-xs font-medium transition-colors hover:text-foreground ' + (
+                    isActivePath(link.href)
+                      ? 'text-foreground'
+                      : 'text-muted-foreground'
+                  )}
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <Button asChild size="sm" variant="outline" className="rounded-full">
+                <Link href="/contacto">Contactanos</Link>
+              </Button>
+            </div>
+
             {/* Mobile Menu Button */}
             <Button
               variant="ghost"
               size="icon"
-              className="md:hidden"
+              className="lg:hidden"
               onClick={() => setIsMobileNavOpen(true)}
               aria-label="Abrir menú"
             >

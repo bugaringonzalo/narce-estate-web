@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { Home, Building, Users, Mail, ChevronRight } from 'lucide-react';
+import { TrendingUp, Home, Key, Calendar, Users, Mail, ChevronRight } from 'lucide-react';
 import {
   Sheet,
   SheetContent,
@@ -17,10 +17,16 @@ interface MobileNavProps {
   onClose: () => void;
 }
 
-// Navegación con iconos
-const mobileNavigation = [
-  { href: '/', label: 'Inicio', icon: Home },
-  { href: '/propiedades', label: 'Propiedades', icon: Building },
+// Servicios principales
+const serviceNavigation = [
+  { href: '/inversiones', label: 'Inversiones', icon: TrendingUp },
+  { href: '/compra-venta', label: 'Compra / Venta', icon: Home },
+  { href: '/alquileres', label: 'Alquileres', icon: Key },
+  { href: '/alquileres-temporales', label: 'Temporales', icon: Calendar },
+];
+
+// Páginas institucionales
+const secondaryMobileNav = [
   { href: '/nosotros', label: 'Nosotros', icon: Users },
   { href: '/contacto', label: 'Contacto', icon: Mail },
 ];
@@ -35,6 +41,32 @@ export const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose }) => {
     return pathname.startsWith(path);
   };
 
+  const renderNavLink = (link: { href: string; label: string; icon: React.ComponentType<{ className?: string }> }) => {
+    const Icon = link.icon;
+    const isActive = isActivePath(link.href);
+
+    return (
+      <Link
+        key={link.href}
+        href={link.href}
+        onClick={onClose}
+        className={cn(
+          'flex items-center gap-4 px-4 py-4 rounded-xl transition-all',
+          isActive
+            ? 'bg-primary text-primary-foreground'
+            : 'text-foreground hover:bg-muted'
+        )}
+      >
+        <Icon className="h-5 w-5" />
+        <span className="flex-1 text-base font-medium">{link.label}</span>
+        <ChevronRight className={cn(
+          'h-4 w-4 transition-transform',
+          isActive ? 'opacity-100' : 'opacity-40'
+        )} />
+      </Link>
+    );
+  };
+
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
       <SheetContent side="right" className="w-[300px] sm:w-[350px] p-0">
@@ -45,31 +77,20 @@ export const MobileNav: React.FC<MobileNavProps> = ({ isOpen, onClose }) => {
         </SheetHeader>
 
         <nav className="flex flex-col p-4">
-          {mobileNavigation.map((link) => {
-            const Icon = link.icon;
-            const isActive = isActivePath(link.href);
+          {/* Servicios */}
+          <p className="px-4 pb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            Servicios
+          </p>
+          {serviceNavigation.map(renderNavLink)}
 
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={onClose}
-                className={cn(
-                  'flex items-center gap-4 px-4 py-4 rounded-xl transition-all',
-                  isActive
-                    ? 'bg-primary text-primary-foreground'
-                    : 'text-foreground hover:bg-muted'
-                )}
-              >
-                <Icon className="h-5 w-5" />
-                <span className="flex-1 text-base font-medium">{link.label}</span>
-                <ChevronRight className={cn(
-                  'h-4 w-4 transition-transform',
-                  isActive ? 'opacity-100' : 'opacity-40'
-                )} />
-              </Link>
-            );
-          })}
+          {/* Separador */}
+          <div className="my-3 border-t" />
+
+          {/* Empresa */}
+          <p className="px-4 pb-2 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            Empresa
+          </p>
+          {secondaryMobileNav.map(renderNavLink)}
         </nav>
 
         {/* Footer del menú */}
