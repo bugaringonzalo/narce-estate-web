@@ -5,16 +5,18 @@ import { ReactNode } from 'react';
 import Link from 'next/link';
 import {
   ArrowRight,
+  TrendingUp,
   Home,
   Key,
   Calendar,
-  Shield,
-  Star,
-  Users,
-  Search,
+  BarChart3,
+  Scale,
+  Network,
+  LineChart,
+  MessageCircle,
+  Mail,
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
 import {
   HeroTitle,
   HeroSubtitle,
@@ -29,40 +31,67 @@ import {
 
 const servicios = [
   {
+    icon: TrendingUp,
+    label: '01',
+    title: 'Inversiones',
+    description:
+      'Flipping, pozo, cash flow y oportunidades off market. Estrategia con visión financiera para maximizar retornos.',
+    href: '/inversiones',
+    accent: true,
+  },
+  {
     icon: Home,
-    title: 'Venta',
-    description: 'Encontrá la propiedad perfecta para comprar.',
-    href: '/propiedades?type=sale',
+    label: '02',
+    title: 'Compra / Venta',
+    description:
+      'Acompañamiento integral en operaciones de compra y venta. Valuación precisa, comercialización y cierre seguro.',
+    href: '/compra-venta',
+    accent: false,
   },
   {
     icon: Key,
-    title: 'Alquiler',
-    description: 'Alquileres tradicionales con contratos seguros.',
-    href: '/propiedades?type=rent',
+    label: '03',
+    title: 'Alquileres',
+    description:
+      'Gestión de contratos tradicionales para propietarios e inquilinos. Procesos transparentes y respaldo legal.',
+    href: '/alquileres',
+    accent: false,
   },
   {
     icon: Calendar,
-    title: 'Alquiler Temporal',
-    description: 'Estadías cortas con toda la flexibilidad.',
-    href: '/propiedades?type=temporary',
+    label: '04',
+    title: 'Temporales',
+    description:
+      'Renta temporaria en plataformas globales. Puesta en valor, pricing dinámico y operación profesional.',
+    href: '/alquileres-temporales',
+    accent: false,
   },
 ];
 
-const ventajas = [
+const diferenciadores = [
   {
-    icon: Shield,
-    title: 'Operaciones seguras',
-    description: 'Trabajamos con total transparencia y respaldo legal.',
+    icon: BarChart3,
+    title: 'Análisis de mercado',
+    description:
+      'Interpretamos datos y tendencias para fundamentar cada decisión con evidencia real del mercado porteño.',
   },
   {
-    icon: Star,
-    title: '+10 años de experiencia',
-    description: 'Conocemos el mercado y te asesoramos mejor.',
+    icon: LineChart,
+    title: 'Estrategia financiera',
+    description:
+      'Cada operación se evalúa con criterio financiero: TIR, cap rate, flujo de fondos y horizonte de inversión.',
   },
   {
-    icon: Users,
-    title: 'Atención personalizada',
-    description: 'Te acompañamos en todo el proceso.',
+    icon: Scale,
+    title: 'Seguridad jurídica',
+    description:
+      'Operaciones blindadas desde el análisis de título hasta la escritura. Sin surpresas, sin riesgos ocultos.',
+  },
+  {
+    icon: Network,
+    title: 'Red privada',
+    description:
+      'Acceso a oportunidades off market y una red de inversores, desarrolladores y operadores de primer nivel.',
   },
 ];
 
@@ -75,120 +104,207 @@ export const HomePageClient: React.FC<HomePageClientProps> = ({
 }) => {
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-muted/30">
-        <div className="container mx-auto px-4 py-20 sm:px-6 sm:py-28 lg:px-8 lg:py-36">
-          <div className="mx-auto max-w-3xl text-center">
-            <HeroTitle className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-              Encontrá tu hogar ideal en Buenos Aires
+
+      {/* ── Hero ─────────────────────────────────────────────── */}
+      <section className="relative overflow-hidden bg-background pt-20 pb-24 sm:pt-28 sm:pb-32 lg:pt-36 lg:pb-40">
+
+        {/* Background ruled lines — editorial texture */}
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage:
+              'repeating-linear-gradient(0deg, currentColor 0px, currentColor 1px, transparent 1px, transparent 48px)',
+          }}
+        />
+
+        {/* Large decorative numeral — architectural weight */}
+        <span
+          className="pointer-events-none absolute right-0 top-0 translate-x-1/4 -translate-y-1/4 select-none font-serif text-[clamp(200px,35vw,500px)] font-bold leading-none text-foreground/[0.03]"
+          aria-hidden="true"
+        >
+          AM
+        </span>
+
+        <FloatingDecoration
+          className="absolute -bottom-32 -left-32 h-[500px] w-[500px] rounded-full blur-3xl bg-primary/5"
+          direction="down"
+          speed={0.6}
+        />
+
+        <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="max-w-4xl">
+
+            {/* Kicker badge */}
+            <SectionTransition type="fade-up" delay={0}>
+              <div className="mb-8 inline-flex items-center gap-3">
+                <span
+                  className="h-px w-12 bg-current opacity-30"
+                  style={{ color: 'var(--color-warm, oklch(0.55 0.05 65))' }}
+                />
+                <span
+                  className="text-xs font-semibold uppercase tracking-[0.25em]"
+                  style={{ color: 'var(--color-warm, oklch(0.55 0.05 65))' }}
+                >
+                  Buenos Aires · Argentina
+                </span>
+              </div>
+            </SectionTransition>
+
+            <HeroTitle className="font-serif text-5xl font-bold leading-[1.05] tracking-tight sm:text-6xl md:text-7xl lg:text-[5rem]">
+              Estrategias inmobiliarias con visión financiera
             </HeroTitle>
 
-            <HeroSubtitle className="mt-6 text-lg text-muted-foreground md:text-xl" delay={0.6}>
-              Somos tu inmobiliaria de confianza. Te ayudamos a encontrar
-              la propiedad perfecta para vos, ya sea para comprar, alquilar
-              o para estadías temporales.
+            <HeroSubtitle
+              className="mt-8 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl"
+              delay={0.5}
+            >
+              Analizamos el mercado, estructuramos la operación y ejecutamos con precisión.
+              Más que inmobiliaria — somos tu socio estratégico en real estate.
             </HeroSubtitle>
 
-            <HeroButtons className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center" delay={0.9}>
-              <Button asChild size="lg" className="gap-2">
+            <HeroButtons
+              className="mt-10 flex flex-wrap gap-4"
+              delay={0.8}
+            >
+              <Button asChild size="lg" className="gap-2 rounded-full px-8 font-semibold">
                 <Link href="/propiedades">
-                  <Search className="h-5 w-5" />
                   Ver propiedades
+                  <ArrowRight className="h-4 w-4" />
                 </Link>
               </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link href="/contacto">Contactanos</Link>
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="gap-2 rounded-full border-foreground/20 px-8 font-semibold hover:border-foreground/50"
+              >
+                <Link href="/inversiones">
+                  Oportunidades de inversión
+                </Link>
               </Button>
             </HeroButtons>
           </div>
         </div>
 
-        {/* Decoraciones flotantes animadas */}
-        <FloatingDecoration
-          className="absolute -top-24 -right-24 h-96 w-96 rounded-full bg-primary/5 blur-3xl"
-          direction="up"
-          speed={0.8}
-        />
-        <FloatingDecoration
-          className="absolute -bottom-24 -left-24 h-96 w-96 rounded-full bg-primary/5 blur-3xl"
-          direction="down"
-          speed={1.2}
-        />
+        {/* Bottom ruled line */}
+        <div className="absolute bottom-0 left-0 right-0 h-px bg-border/60" />
       </section>
 
-      {/* Servicios */}
-      <section className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <MaskReveal direction="up" duration={1}>
-            <TextReveal
-              as="h2"
-              type="words"
-              className="text-3xl font-bold tracking-tight sm:text-4xl"
-            >
-              Nuestros servicios
-            </TextReveal>
-          </MaskReveal>
+      {/* ── Servicios ────────────────────────────────────────── */}
+      <section className="container mx-auto px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
 
-          <SectionTransition type="blur-in" delay={0.3}>
-            <p className="mt-4 text-muted-foreground">
-              Ofrecemos soluciones para todas tus necesidades inmobiliarias.
-            </p>
-          </SectionTransition>
-
-          <AnimatedLine className="mx-auto mt-6 max-w-[100px]" color="hsl(var(--primary))" />
+        <div className="mb-14 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <SectionTransition type="fade-up">
+              <p
+                className="mb-3 text-xs font-semibold uppercase tracking-[0.25em]"
+                style={{ color: 'var(--color-warm, oklch(0.55 0.05 65))' }}
+              >
+                Áreas de servicio
+              </p>
+            </SectionTransition>
+            <MaskReveal direction="up" duration={0.9}>
+              <TextReveal
+                as="h2"
+                type="words"
+                className="font-serif text-3xl font-bold tracking-tight sm:text-4xl"
+              >
+                Todo lo que necesitás en un solo lugar
+              </TextReveal>
+            </MaskReveal>
+          </div>
+          <AnimatedLine
+            className="hidden w-24 sm:block"
+            color="var(--color-warm, oklch(0.55 0.05 65))"
+          />
         </div>
 
         <StaggerGrid
-          className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-          stagger={0.15}
+          className="grid gap-5 sm:grid-cols-2"
+          stagger={0.12}
           direction="up"
-          distance={80}
+          distance={60}
         >
           {servicios.map((servicio) => {
             const Icon = servicio.icon;
             return (
-              <Link key={servicio.title} href={servicio.href}>
-                <Card className="h-full transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:border-primary/50">
-                  <CardContent className="flex flex-col items-center p-6 text-center">
-                    <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10 transition-transform duration-300 group-hover:scale-110">
-                      <Icon className="h-7 w-7 text-primary" />
+              <Link
+                key={servicio.title}
+                href={servicio.href}
+                className="group relative overflow-hidden rounded-2xl border border-border/60 bg-card p-7 transition-all duration-500 hover:border-foreground/20 hover:shadow-xl"
+              >
+                {/* Hover fill */}
+                <div className="absolute inset-0 -translate-y-full bg-foreground/[0.02] transition-transform duration-500 group-hover:translate-y-0" />
+
+                <div className="relative flex flex-col gap-5">
+                  <div className="flex items-start justify-between">
+                    <div
+                      className="flex h-12 w-12 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110"
+                      style={{
+                        background: 'color-mix(in oklch, var(--color-warm, oklch(0.55 0.05 65)) 12%, transparent)',
+                      }}
+                    >
+                      <Icon
+                        className="h-5 w-5"
+                        style={{ color: 'var(--color-warm, oklch(0.55 0.05 65))' }}
+                      />
                     </div>
-                    <h3 className="mt-4 text-xl font-semibold">{servicio.title}</h3>
-                    <p className="mt-2 text-sm text-muted-foreground">
+                    <span className="font-serif text-4xl font-bold text-foreground/10 transition-colors duration-300 group-hover:text-foreground/20">
+                      {servicio.label}
+                    </span>
+                  </div>
+
+                  <div>
+                    <h3 className="font-serif text-xl font-bold tracking-tight">
+                      {servicio.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                       {servicio.description}
                     </p>
-                  </CardContent>
-                </Card>
+                  </div>
+
+                  <div
+                    className="flex items-center gap-2 text-sm font-semibold transition-colors duration-300"
+                    style={{ color: 'var(--color-warm, oklch(0.55 0.05 65))' }}
+                  >
+                    Ver más
+                    <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                  </div>
+                </div>
               </Link>
             );
           })}
         </StaggerGrid>
       </section>
 
-      {/* Propiedades destacadas */}
-      <section className="bg-muted/30 py-16">
+      {/* ── Propiedades destacadas ────────────────────────────── */}
+      <section className="bg-muted/30 py-20 sm:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
+
+          <div className="mb-12 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
             <div>
               <SectionTransition type="slide-left">
                 <TextReveal
                   as="h2"
                   type="words"
-                  className="text-3xl font-bold tracking-tight sm:text-4xl"
+                  className="font-serif text-3xl font-bold tracking-tight sm:text-4xl"
                 >
-                  Propiedades destacadas
+                  Propiedades seleccionadas
                 </TextReveal>
               </SectionTransition>
-
               <SectionTransition type="fade-up" delay={0.2}>
                 <p className="mt-2 text-muted-foreground">
-                  Descubrí las mejores opciones seleccionadas para vos.
+                  Una selección curada por nuestro equipo.
                 </p>
               </SectionTransition>
             </div>
 
             <SectionTransition type="slide-right" delay={0.3}>
-              <Button asChild variant="outline" className="gap-2 self-start sm:self-auto group">
+              <Button
+                asChild
+                variant="outline"
+                className="group gap-2 self-start rounded-full sm:self-auto"
+              >
                 <Link href="/propiedades">
                   Ver todas
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -197,10 +313,9 @@ export const HomePageClient: React.FC<HomePageClientProps> = ({
             </SectionTransition>
           </div>
 
-          {/* Slot para las propiedades (vienen del server component) */}
           <StaggerGrid
             className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
-            stagger={0.2}
+            stagger={0.15}
             direction="scale"
           >
             {featuredPropertiesSlot}
@@ -208,83 +323,150 @@ export const HomePageClient: React.FC<HomePageClientProps> = ({
         </div>
       </section>
 
-      {/* Por qué elegirnos */}
-      <section className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
-          <MaskReveal direction="left" maskColor="hsl(var(--primary))">
+      {/* ── Diferenciadores ──────────────────────────────────── */}
+      <section className="container mx-auto px-4 py-20 sm:px-6 sm:py-24 lg:px-8">
+
+        <div className="mb-14 text-center">
+          <SectionTransition type="fade-up">
+            <p
+              className="mb-3 text-xs font-semibold uppercase tracking-[0.25em]"
+              style={{ color: 'var(--color-warm, oklch(0.55 0.05 65))' }}
+            >
+              Nuestro diferencial
+            </p>
+          </SectionTransition>
+          <MaskReveal direction="left" maskColor="var(--color-warm, oklch(0.55 0.05 65))">
             <TextReveal
               as="h2"
               type="words"
-              className="text-3xl font-bold tracking-tight sm:text-4xl"
+              className="mx-auto max-w-2xl font-serif text-3xl font-bold tracking-tight sm:text-4xl"
             >
-              ¿Por qué elegirnos?
+              Estrategia, análisis y ejecución
             </TextReveal>
           </MaskReveal>
-
           <SectionTransition type="blur-in" delay={0.3}>
-            <p className="mt-4 text-muted-foreground">
-              Somos tu mejor opción para encontrar propiedades en Buenos Aires.
+            <p className="mx-auto mt-4 max-w-xl text-muted-foreground">
+              No especulamos. Trabajamos con datos, criterio financiero y una red que te abre puertas que otros no ven.
             </p>
           </SectionTransition>
         </div>
 
         <StaggerGrid
-          className="mt-12 grid gap-8 md:grid-cols-3"
-          stagger={0.2}
+          className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4"
+          stagger={0.15}
           direction="up"
+          distance={50}
         >
-          {ventajas.map((ventaja) => {
-            const Icon = ventaja.icon;
+          {diferenciadores.map((item, i) => {
+            const Icon = item.icon;
             return (
-              <div key={ventaja.title} className="text-center group">
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 transition-all duration-500 group-hover:bg-primary group-hover:scale-110">
-                  <Icon className="h-8 w-8 text-primary transition-colors group-hover:text-primary-foreground" />
+              <div key={item.title} className="group flex flex-col gap-4">
+                {/* Number + line */}
+                <div className="flex items-center gap-3">
+                  <span
+                    className="font-serif text-2xl font-bold"
+                    style={{ color: 'var(--color-warm, oklch(0.55 0.05 65))' }}
+                  >
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <div
+                    className="h-px flex-1 transition-all duration-500 group-hover:opacity-80"
+                    style={{ background: 'var(--color-warm, oklch(0.55 0.05 65))', opacity: 0.3 }}
+                  />
                 </div>
-                <h3 className="mt-4 text-xl font-semibold">{ventaja.title}</h3>
-                <p className="mt-2 text-muted-foreground">{ventaja.description}</p>
+
+                <div
+                  className="flex h-11 w-11 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110"
+                  style={{
+                    background: 'color-mix(in oklch, var(--color-warm, oklch(0.55 0.05 65)) 10%, transparent)',
+                  }}
+                >
+                  <Icon
+                    className="h-5 w-5"
+                    style={{ color: 'var(--color-warm, oklch(0.55 0.05 65))' }}
+                  />
+                </div>
+
+                <h3 className="font-serif text-lg font-bold tracking-tight">{item.title}</h3>
+                <p className="text-sm leading-relaxed text-muted-foreground">{item.description}</p>
               </div>
             );
           })}
         </StaggerGrid>
       </section>
 
-      {/* CTA Final */}
-      <section className="bg-primary/5 py-16 overflow-hidden">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl text-center">
+      {/* ── CTA Final ────────────────────────────────────────── */}
+      <section className="container mx-auto px-4 pb-20 sm:px-6 sm:pb-24 lg:px-8">
+        <div className="relative overflow-hidden rounded-3xl bg-foreground px-8 py-16 text-background sm:px-14 sm:py-20">
+
+          {/* Background texture */}
+          <div
+            className="pointer-events-none absolute inset-0 opacity-[0.04]"
+            style={{
+              backgroundImage:
+                'repeating-linear-gradient(45deg, currentColor 0px, currentColor 1px, transparent 1px, transparent 24px)',
+            }}
+          />
+
+          {/* Decorative serif AM */}
+          <span
+            className="pointer-events-none absolute -right-8 -top-8 select-none font-serif text-[200px] font-bold leading-none opacity-[0.04]"
+            aria-hidden="true"
+          >
+            AM
+          </span>
+
+          <div className="relative mx-auto max-w-2xl text-center">
             <SectionTransition type="flip">
               <TextReveal
                 as="h2"
                 type="words"
-                className="text-3xl font-bold tracking-tight sm:text-4xl"
+                className="font-serif text-3xl font-bold leading-tight tracking-tight text-background sm:text-4xl md:text-5xl"
               >
                 ¿Listo para dar el próximo paso?
               </TextReveal>
             </SectionTransition>
 
             <SectionTransition type="blur-in" delay={0.3}>
-              <p className="mt-4 text-muted-foreground">
-                Contactanos y te ayudamos a encontrar tu próxima propiedad.
-                Estamos para asesorarte en todo el proceso.
+              <p className="mt-5 text-background/60 sm:text-lg">
+                Hablemos de tu próxima operación. Sin compromiso, con toda la información
+                que necesitás para decidir con claridad.
               </p>
             </SectionTransition>
 
             <SectionTransition type="zoom-in" delay={0.5}>
-              <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:justify-center">
-                <Button asChild size="lg" className="gap-2 group">
-                  <Link href="/propiedades">
-                    Explorar propiedades
-                    <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-1" />
-                  </Link>
+              <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:justify-center">
+                <Button
+                  asChild
+                  size="lg"
+                  className="gap-2 rounded-full bg-background px-8 font-semibold text-foreground hover:bg-background/90"
+                >
+                  <a
+                    href="https://wa.me/5491156196355"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <MessageCircle className="h-5 w-5" />
+                    WhatsApp
+                  </a>
                 </Button>
-                <Button asChild variant="outline" size="lg">
-                  <Link href="/contacto">Contactanos</Link>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="gap-2 rounded-full border-background/30 px-8 font-semibold text-background hover:border-background/60 hover:bg-background/10"
+                >
+                  <a href="mailto:arcemonsegur@gmail.com">
+                    <Mail className="h-5 w-5" />
+                    Escribinos
+                  </a>
                 </Button>
               </div>
             </SectionTransition>
           </div>
         </div>
       </section>
+
     </div>
   );
 };
